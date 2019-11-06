@@ -1,0 +1,2 @@
+include ':bottom-nav-app'
+rootProject.name='examples-2019-android'
