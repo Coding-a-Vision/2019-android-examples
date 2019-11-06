@@ -7,7 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.migreat.bottomnavtest.R
+import examples.android2019.bottomnavapp.R
 
 class MainActivity : AppCompatActivity() {
 

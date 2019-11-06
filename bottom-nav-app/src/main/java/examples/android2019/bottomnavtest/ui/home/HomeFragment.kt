@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.migreat.bottomnavtest.R
+import examples.android2019.bottomnavapp.R
 
 class HomeFragment : Fragment() {
 

@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.migreat.bottomnavtest.R
+import examples.android2019.viewmodelapp.R
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
