@@ -1,5 +1,6 @@
 package examples.android2019.recyclerview
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -27,13 +28,18 @@ class MainActivity : AppCompatActivity() {
         listView.layoutManager = verticalLayoutManager
         listView.adapter = SimpleCategoryAdapter(categoryList)
 
-        val changeOrientationAction: Button = findViewById(R.id.action_change_orientation)
+        val changeOrientationAction: Button = findViewById(R.id.add_to_list_action)
         changeOrientationAction.setOnClickListener {
             if (listView.layoutManager == verticalLayoutManager) {
                 listView.layoutManager = horizontalLayoutManager
             } else {
                 listView.layoutManager = verticalLayoutManager
             }
+        }
+
+        val openDynamicAction: Button = findViewById(R.id.action_open_dynamic)
+        openDynamicAction.setOnClickListener {
+            startActivity(Intent(this, DynamicListActivity::class.java))
         }
     }
 }
