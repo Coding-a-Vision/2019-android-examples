@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import examples.android2019.recyclerviewapp.R
+import kotlin.random.Random
 
 class DynamicListActivity : AppCompatActivity() {
 
@@ -28,9 +29,8 @@ class DynamicListActivity : AppCompatActivity() {
 
         val addToListAction: Button = findViewById(R.id.add_to_list_action)
         addToListAction.setOnClickListener {
-            //TODO
-//            val listAdapter = listView.adapter as DynamicCategoryAdapter
-//            adapter.submitList(listAdapter.curre)
+            val randomCategory = Category(Random.nextInt().toString())
+            adapter.submitList(adapter.currentList.plus(randomCategory))
         }
     }
 }
