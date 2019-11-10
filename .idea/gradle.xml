@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/bottom-nav-app" />
             <option value="$PROJECT_DIR$/passing-data-app" />
+            <option value="$PROJECT_DIR$/recyclerview-app" />
             <option value="$PROJECT_DIR$/viewmodel-app" />
           </set>
         </option>
