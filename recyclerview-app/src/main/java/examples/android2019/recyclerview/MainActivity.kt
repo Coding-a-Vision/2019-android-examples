@@ -9,7 +9,7 @@ import examples.android2019.recyclerviewapp.R
 
 class MainActivity : AppCompatActivity() {
 
-    val categoryList = listOf(
+    private val categoryList = listOf(
         Category("first"),
         Category("2nd category"),
         Category("third"),
@@ -25,11 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         val listView: RecyclerView = findViewById(R.id.categories_list)
         listView.layoutManager = verticalLayoutManager
-        listView.adapter =
-            SimpleCategoryAdapter(categoryList)
+        listView.adapter = SimpleCategoryAdapter(categoryList)
 
-        val changeTextAction: Button = findViewById(R.id.action_change_text)
-        changeTextAction.setOnClickListener {
+        val changeOrientationAction: Button = findViewById(R.id.action_change_orientation)
+        changeOrientationAction.setOnClickListener {
             if (listView.layoutManager == verticalLayoutManager) {
                 listView.layoutManager = horizontalLayoutManager
             } else {
