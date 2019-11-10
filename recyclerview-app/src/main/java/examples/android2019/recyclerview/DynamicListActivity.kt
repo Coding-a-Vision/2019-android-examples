@@ -3,6 +3,7 @@ package examples.android2019.recyclerview
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import examples.android2019.recyclerviewapp.R
@@ -23,6 +24,8 @@ class DynamicListActivity : AppCompatActivity() {
 
         val listView: RecyclerView = findViewById(R.id.categories_list)
         listView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        listView.itemAnimator = DefaultItemAnimator() //for animations
+
         val adapter = DynamicCategoryAdapter()
         listView.adapter = adapter
         adapter.submitList(categoryList)
