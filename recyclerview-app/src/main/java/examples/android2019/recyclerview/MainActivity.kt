@@ -2,31 +2,39 @@ package examples.android2019.recyclerview
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import examples.android2019.recyclerviewapp.R
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    val categoryList = listOf(
+        Category("first"),
+        Category("2nd category"),
+        Category("third"),
+        Category("3th cat")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel =
-            ViewModelProviders.of(this).get(MainViewModel::class.java)
         setContentView(R.layout.activity_main)
 
-        val textView: TextView = findViewById(R.id.text_main)
-        mainViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
+        val verticalLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val horizontalLayoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
+        val listView: RecyclerView = findViewById(R.id.categories_list)
+        listView.layoutManager = verticalLayoutManager
+        listView.adapter =
+            SimpleCategoryAdapter(categoryList)
 
         val changeTextAction: Button = findViewById(R.id.action_change_text)
         changeTextAction.setOnClickListener {
-            mainViewModel.changeText(Random.nextInt().toString())
+            if (listView.layoutManager == verticalLayoutManager) {
+                listView.layoutManager = horizontalLayoutManager
+            } else {
+                listView.layoutManager = verticalLayoutManager
+            }
         }
     }
 }
