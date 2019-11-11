@@ -15,9 +15,7 @@ class SimpleCategoryAdapter(private val categoryList: List<Category>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem, parent, false)
-        return CategoryViewHolder(
-            view
-        )
+        return CategoryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
