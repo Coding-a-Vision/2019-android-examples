@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/lifecycle-app" />
             <option value="$PROJECT_DIR$/passing-data-app" />
             <option value="$PROJECT_DIR$/recyclerview-app" />
+            <option value="$PROJECT_DIR$/sharedprefs-app" />
             <option value="$PROJECT_DIR$/viewmodel-app" />
           </set>
         </option>

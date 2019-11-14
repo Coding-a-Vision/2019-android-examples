@@ -1,7 +1,8 @@
 include ':bottom-nav-app',
-':lifecycle-app',
-':viewmodel-app',
-':passing-data-app',
-':recyclerview-app'
+        ':lifecycle-app',
+        ':passing-data-app',
+        ':recyclerview-app',
+        ':sharedprefs-app',
+        ':viewmodel-app'
 
 rootProject.name = 'examples-2019-android'
