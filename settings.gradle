@@ -1,2 +1,7 @@
-include ':bottom-nav-app', ':viewmodel-app', ':passing-data-app', ':recyclerview-app'
-rootProject.name='examples-2019-android'
+include ':bottom-nav-app',
+':lifecycle-app',
+':viewmodel-app',
+':passing-data-app',
+':recyclerview-app'
+
+rootProject.name = 'examples-2019-android'
