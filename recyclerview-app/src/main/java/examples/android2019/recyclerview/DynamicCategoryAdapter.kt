@@ -45,6 +45,6 @@ class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
     }
 
     override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem //TODO check this
+        return oldItem == newItem
     }
 }
