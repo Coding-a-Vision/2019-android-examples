@@ -1,5 +1,6 @@
 include ':bottom-nav-app',
         ':lifecycle-app',
+        ':network-app',
         ':passing-data-app',
         ':recyclerview-app',
         ':sharedprefs-app',
