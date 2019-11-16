@@ -25,16 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Change text"
-        app:layout_constraintBottom_toTopOf="@+id/action_open_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/action_open_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Open 2nd activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -11,22 +11,26 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel =
-            ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         setContentView(R.layout.activity_main)
 
         val textView: TextView = findViewById(R.id.text_main)
-        mainViewModel.text.observe(this, Observer {
+        viewModel.text.observe(this, Observer {
             textView.text = it
         })
 
         val changeTextAction: Button = findViewById(R.id.action_change_text)
         changeTextAction.setOnClickListener {
-            mainViewModel.changeText(Random.nextInt().toString())
+            viewModel.changeText(Random.nextInt().toString())
+        }
+
+        val openSecondAction: Button = findViewById(R.id.action_open_second)
+        openSecondAction.setOnClickListener {
+            SecondActivity.openSecondActivity(this)
         }
     }
 }
