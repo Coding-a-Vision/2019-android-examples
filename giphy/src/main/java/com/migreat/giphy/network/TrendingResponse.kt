@@ -40,6 +40,7 @@ data class TrendingResponse(
 
         fun toGif(): Gif {
             return Gif(
+                id = id,
                 original = Gif.Original(images.original.url),
                 preview = Gif.Preview(images.preview_gif.url)
             )

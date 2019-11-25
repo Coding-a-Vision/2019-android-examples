@@ -1,6 +1,7 @@
 package com.migreat.giphy.model
 
 data class Gif(
+    val id: String,
     val original: Original,
     val preview: Preview
 ) {
