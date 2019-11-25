@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
+import com.migreat.giphy.model.Gif
 import kotlinx.android.synthetic.main.activity_giphy.*
 
 class GiphyActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class GiphyActivity : AppCompatActivity() {
                 }
                 is GiphyState.Success -> {
                     hideProgress()
-                    TODO()
+                    showGifs(state.gifs)
                 }
             }
         })
@@ -70,6 +71,12 @@ class GiphyActivity : AppCompatActivity() {
                 viewModel.send(GiphyEvent.Load)
             })
             .show()
+    }
+
+    private fun showGifs(gifs: List<Gif>) {
+        Log.d("GiphyActivity", "showGifs: $gifs")
+
+        //TODO
     }
 
 }

@@ -1,6 +1,8 @@
 package com.migreat.giphy
 
 import android.util.Log
+import com.migreat.giphy.model.Gif
+import com.migreat.giphy.network.TrendingResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -11,8 +13,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 private const val API_KEY = "LJ1BhrpKfWZO9GIuYQiJ6wEWQFUDAkE6"
+
+sealed class GifResult {
+    data class Error(val error: Throwable) : GifResult()
+    data class Success(val gifs: List<Gif>) : GifResult()
+}
+
+interface GifResultReceiver {
+    fun receive(result: GifResult)
+}
 
 class GiphyService {
 
@@ -30,71 +40,37 @@ class GiphyService {
 
     private val service: GiphyApi = retrofit.create<GiphyApi>(GiphyApi::class.java)
 
-    fun loadTrending() {
-        val trending = service.trending(API_KEY)
+    fun loadTrending(receiver: GifResultReceiver) {
+        service.trending(API_KEY)
+            .enqueue(object : Callback<TrendingResponse> {
+                override fun onFailure(call: Call<TrendingResponse>, t: Throwable) {
+                    Log.d("GiphyService", "error: $t")
+                    receiver.receive(GifResult.Error(t))
+                }
 
-        val result = trending.enqueue(object : Callback<TrendingResponse> {
-            override fun onFailure(call: Call<TrendingResponse>, t: Throwable) {
-                Log.d("GiphyService", "error: $t")
-            }
+                override fun onResponse(
+                    call: Call<TrendingResponse>,
+                    response: Response<TrendingResponse>
+                ) {
 
-            override fun onResponse(
-                call: Call<TrendingResponse>,
-                response: Response<TrendingResponse>
-            ) {
+                    val success = response.body()
+                    Log.d("GiphyService", "success: $success")
 
-                val success = response.body()
-                val error = response.errorBody()
+                    val error = response.errorBody()
+                    Log.d("GiphyService", "error: $error")
 
-                Log.d("GiphyService", "success: $success")
-                Log.d("GiphyService", "error: $error")
-                //TODO return result
-            }
-
-        }) //TODO this works?
+                    if (success != null) {
+                        val gifList = success.data.map { responseGif -> responseGif.toGif() }
+                        receiver.receive(GifResult.Success(gifList))
+                    } else {
+                        receiver.receive(GifResult.Error(Throwable(error.toString())))
+                    }
+                }
+            })
     }
-
 }
 
 interface GiphyApi {
     @GET("v1/gifs/trending")
     fun trending(@Query("api_key") api_key: String): Call<TrendingResponse>
-}
-
-data class TrendingResponse(
-    val data: ArrayList<ResponseGif>
-) {
-    data class ResponseGif(
-        val type: String,
-        val id: String,
-        val url: String,
-        val slug: String,
-        val title: String,
-        val images: Images
-    ) {
-        data class Images(
-            val original: Original,
-            val preview_gif: Preview
-        ) {
-            data class Original(
-                val frames: String,
-                val hash: String,
-                val height: String,
-                val mp4: String,
-                val mp4_size: String,
-                val size: String,
-                val url: String,
-                val webp: String,
-                val webp_size: String,
-                val width: String
-            )
-
-            data class Preview(
-                val height: String,
-                val size: String,
-                val url: String,
-                val width: String
-            )
-        }
-    }
 }

@@ -1,8 +1,8 @@
 package com.migreat.giphy
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.migreat.giphy.model.Gif
 
 sealed class GiphyEvent {
     object Load : GiphyEvent()
@@ -11,7 +11,7 @@ sealed class GiphyEvent {
 sealed class GiphyState {
     object InProgress : GiphyState()
     data class Error(val error: Throwable) : GiphyState()
-    object Success : GiphyState()
+    data class Success(val gifs: List<Gif>) : GiphyState()
 }
 
 class GiphyViewModel : ViewModel() {
@@ -20,10 +20,6 @@ class GiphyViewModel : ViewModel() {
 
     var state: MutableLiveData<GiphyState> = MutableLiveData()
 
-    init {
-        state.value = GiphyState.InProgress
-    }
-
     fun send(event: GiphyEvent) {
         when (event) {
             GiphyEvent.Load -> loadContent()
@@ -31,14 +27,20 @@ class GiphyViewModel : ViewModel() {
     }
 
     private fun loadContent() {
-        //TODO
-        Log.d("GiphyViewModel", "loadContent")
+        state.value = GiphyState.InProgress
 
         try {
-            giphyService.loadTrending() //TODO no result
+            giphyService.loadTrending(object : GifResultReceiver {
+                override fun receive(result: GifResult) {
+                    when (result) {
+                        is GifResult.Error -> state.value = GiphyState.Error(error = result.error)
+                        is GifResult.Success -> state.value = GiphyState.Success(gifs = result.gifs)
+                    }
+                }
+
+            })
         } catch (exception: Throwable) {
             state.value = GiphyState.Error(exception)
         }
     }
-
 }

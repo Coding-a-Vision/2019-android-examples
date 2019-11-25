@@ -13,6 +13,7 @@ import retrofit2.http.Query
 
 private const val CACHE_SIZE: Long = 10 * 1024 * 1024 //10MB
 
+private const val API_KEY = "LJ1BhrpKfWZO9GIuYQiJ6wEWQFUDAkE6"
 
 class GiphyClient(context: Context) {
 
