@@ -1,5 +1,6 @@
 package com.migreat.giphy
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,10 @@ class GifsAdapter : ListAdapter<Gif, GifsViewHolder>(GifsDiffUtil()) {
                 .load(gif.preview.url)
                 .fitCenter()
                 .into(holder.gifImage)
+        }
+
+        holder.gifImage.setOnClickListener {
+            GifDetailActivity.openGifDetailActivity(holder.gifImage.context as Activity, gif.id)
         }
     }
 }

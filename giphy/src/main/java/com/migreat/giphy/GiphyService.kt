@@ -2,6 +2,7 @@ package com.migreat.giphy
 
 import android.util.Log
 import com.migreat.giphy.model.Gif
+import com.migreat.giphy.network.GifDetailResponse
 import com.migreat.giphy.network.TrendingResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,6 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val API_KEY = "LJ1BhrpKfWZO9GIuYQiJ6wEWQFUDAkE6"
@@ -62,9 +64,23 @@ class GiphyService {
                 }
             })
     }
+
+    suspend fun gifDetail(gifId: String): Gif {
+        val response = service.gifDetail(apiKey = API_KEY, gifId = gifId)
+        val success = response.body()
+
+        if (success != null) {
+            return success.data.toGif()
+        } else {
+            throw Exception(response.errorBody().toString())
+        }
+    }
 }
 
 interface GiphyApi {
     @GET("v1/gifs/trending")
     fun trending(@Query("api_key") api_key: String): Call<TrendingResponse>
+
+    @GET("v1/gifs/{gif_id}")
+    suspend fun gifDetail(@Path("gif_id") gifId: String, @Query("api_key") apiKey: String): Response<GifDetailResponse>
 }
