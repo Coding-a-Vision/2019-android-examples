@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
 import com.migreat.giphy.model.Gif
@@ -21,6 +24,10 @@ class GiphyActivity : AppCompatActivity() {
 
     private lateinit var progress: ProgressBar
 
+    private lateinit var gifsRV: RecyclerView
+
+    private lateinit var gifsAdapter: ListAdapter<Gif, GifsViewHolder>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_giphy)
@@ -33,6 +40,11 @@ class GiphyActivity : AppCompatActivity() {
     private fun setupViews() {
         baseLayout = findViewById(R.id.base_layout)
         progress = findViewById(R.id.progress)
+
+        gifsRV = findViewById(R.id.gifs_list)
+        gifsRV.layoutManager = GridLayoutManager(this, 2)
+        gifsAdapter = GifsAdapter()
+        gifsRV.adapter = gifsAdapter
     }
 
     override fun onStart() {
@@ -76,7 +88,7 @@ class GiphyActivity : AppCompatActivity() {
     private fun showGifs(gifs: List<Gif>) {
         Log.d("GiphyActivity", "showGifs: $gifs")
 
-        //TODO
+        gifsAdapter.submitList(gifs)
     }
 
 }
