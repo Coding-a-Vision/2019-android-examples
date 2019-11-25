@@ -16,6 +16,8 @@ sealed class GiphyState {
 
 class GiphyViewModel : ViewModel() {
 
+    private val giphyService = GiphyService()
+
     var state: MutableLiveData<GiphyState> = MutableLiveData()
 
     init {
@@ -32,7 +34,11 @@ class GiphyViewModel : ViewModel() {
         //TODO
         Log.d("GiphyViewModel", "loadContent")
 
-        state.value = GiphyState.Error(Exception("test!"))
+        try {
+            giphyService.loadTrending() //TODO no result
+        } catch (exception: Throwable) {
+            state.value = GiphyState.Error(exception)
+        }
     }
 
 }
