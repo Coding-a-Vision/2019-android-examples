@@ -19,7 +19,11 @@ class GifsAdapter : ListAdapter<Gif, GifsViewHolder>(GifsDiffUtil()) {
     override fun onBindViewHolder(holder: GifsViewHolder, position: Int) {
         val gif = getItem(position)
         gif.let {
-            Glide.with(holder.gifImage.context).load(gif.preview.url).into(holder.gifImage)
+            Glide
+                .with(holder.gifImage.context)
+                .load(gif.preview.url)
+                .fitCenter()
+                .into(holder.gifImage)
         }
     }
 }
