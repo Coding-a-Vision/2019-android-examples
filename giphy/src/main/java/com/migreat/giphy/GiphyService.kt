@@ -52,18 +52,12 @@ class GiphyService {
                     call: Call<TrendingResponse>,
                     response: Response<TrendingResponse>
                 ) {
-
                     val success = response.body()
-                    Log.d("GiphyService", "success: $success")
-
-                    val error = response.errorBody()
-                    Log.d("GiphyService", "error: $error")
-
                     if (success != null) {
                         val gifList = success.data.map { responseGif -> responseGif.toGif() }
                         receiver.receive(GifResult.Success(gifList))
                     } else {
-                        receiver.receive(GifResult.Error(Throwable(error.toString())))
+                        receiver.receive(GifResult.Error(Throwable(response.errorBody().toString())))
                     }
                 }
             })
