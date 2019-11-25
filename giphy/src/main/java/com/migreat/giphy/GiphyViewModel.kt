@@ -29,7 +29,10 @@ class GiphyViewModel : ViewModel() {
     }
 
     private fun loadContent() {
+        //TODO
         Log.d("GiphyViewModel", "loadContent")
+
+        state.value = GiphyState.Error(Exception("test!"))
     }
 
 }
