@@ -15,7 +15,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val API_KEY = "LJ1BhrpKfWZO9GIuYQiJ6wEWQFUDAkE6"
+private const val API_KEY = null //TODO add your own key!
 
 sealed class GifResult {
     data class Error(val error: Throwable) : GifResult()
