@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/bottom-nav-app" />
+            <option value="$PROJECT_DIR$/giphy" />
             <option value="$PROJECT_DIR$/lifecycle-app" />
             <option value="$PROJECT_DIR$/network-app" />
             <option value="$PROJECT_DIR$/passing-data-app" />
