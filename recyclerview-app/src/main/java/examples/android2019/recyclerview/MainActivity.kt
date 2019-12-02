@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import examples.android2019.recyclerviewapp.R
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         val listView: RecyclerView = findViewById(R.id.categories_list)
         listView.layoutManager = verticalLayoutManager
-        listView.adapter = SimpleCategoryAdapter(categoryList)
+        listView.itemAnimator = DefaultItemAnimator() //for animations
 
-        val changeOrientationAction: Button = findViewById(R.id.add_to_list_action)
+        val adapter = DynamicCategoryAdapter()
+        listView.adapter = adapter
+        adapter.submitList(categoryList)
+
+        val changeOrientationAction: Button = findViewById(R.id.change_orientation_action)
         changeOrientationAction.setOnClickListener {
             if (listView.layoutManager == verticalLayoutManager) {
                 listView.layoutManager = horizontalLayoutManager
@@ -37,9 +43,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val openDynamicAction: Button = findViewById(R.id.action_open_dynamic)
-        openDynamicAction.setOnClickListener {
-            startActivity(Intent(this, DynamicListActivity::class.java))
+        val addToListAction: Button = findViewById(R.id.add_to_list_action)
+        addToListAction.setOnClickListener {
+            val randomCategory = Category(Random.nextInt().toString())
+            adapter.submitList(adapter.currentList.plus(randomCategory))
         }
     }
 }
