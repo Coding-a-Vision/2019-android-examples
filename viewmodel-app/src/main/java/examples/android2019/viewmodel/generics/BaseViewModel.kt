@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel<STATE, EVENT> : ViewModel() {
 
-    protected open val pageState: MutableLiveData<STATE> = MutableLiveData()
+    protected open val state: MutableLiveData<STATE> = MutableLiveData()
 
     fun observe(owner: LifecycleOwner, observer: (STATE) -> Unit) {
-        pageState.observe(owner, Observer { it?.let(observer::invoke) })
+        state.observe(owner, Observer { it?.let(observer::invoke) })
     }
 
-    fun state() = pageState.value
+    fun state() = state.value
 
     abstract fun send(event: EVENT)
 }

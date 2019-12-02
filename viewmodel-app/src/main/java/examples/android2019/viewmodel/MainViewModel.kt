@@ -1,19 +1,36 @@
 package examples.android2019.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+
+sealed class PageEvent {
+
+    data class ChangeText(val text: String) : PageEvent()
+}
+
+sealed class PageState {
+
+    data class TextChanged(val text: String) : PageState()
+
+}
 
 class MainViewModel : ViewModel() {
 
-    val text = MutableLiveData<String>()
+    private val pageState = MutableLiveData<PageState>()
 
     init {
-        text.value = "This is the main activity"
+        pageState.value = PageState.TextChanged("This is main activity")
     }
 
-    fun changeText(newText: String) {
-        Log.i("TEST", "setting text to: $newText")
-        text.value = newText
+    fun observe(owner: LifecycleOwner, observer: (PageState) -> Unit) {
+        pageState.observe(owner, Observer { it?.let(observer::invoke) })
+    }
+
+    fun send(event: PageEvent) {
+        when (event) {
+            is PageEvent.ChangeText -> pageState.value = PageState.TextChanged(event.text)
+        }.exhaustive
     }
 }
