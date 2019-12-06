@@ -1,5 +1,6 @@
 include ':bottom-nav-app',
         ':giphy',
+        ':network-app',
         ':lifecycle-app',
         ':passing-data-app',
         ':recyclerview-app',
