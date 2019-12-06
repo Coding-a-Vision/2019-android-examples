@@ -1,4 +1,4 @@
-include ':bottom-nav-app',
+include ':bottom-nav-app', ':database-app',
         ':giphy',
         ':network-app',
         ':lifecycle-app',
